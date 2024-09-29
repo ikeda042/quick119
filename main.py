@@ -85,5 +85,4 @@ if __name__ == "__main__":
     with open("output.csv", "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["URL", "Question Text", "Option Text", "Option Value"])
-
-    traverse(root_url, depth=3)
+    traverse(root_url, depth=10)
