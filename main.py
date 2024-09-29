@@ -4,24 +4,37 @@ from bs4 import BeautifulSoup as BS
 
 
 class Option:
-    def __init__(self, text, data_bvalue):
+    def __init__(self, text, data_bvalue) -> None:
         self.text = text
         self.data_bvalue = data_bvalue
 
 
 class Question:
-    def __init__(self, text, options):
+    def __init__(self, text, options) -> None:
         self.text = text
         self.options = options
 
 
 class Response:
-    def __init__(self, html_raw, question):
+    def __init__(self, html_raw, question) -> None:
         self.html_raw = html_raw
         self.question = question
 
+    def __repr__(self) -> str:
+        return f"Response({self.question})"
 
-def get_response(url: str):
+
+class Node:
+    def __init__(self, text, options) -> None:
+        self.text = text
+        self.options = options
+        self.children = []
+
+    def __repr__(self) -> str:
+        return f"Node({self.text})"
+
+
+def get_response(url: str) -> Response:
     session = HTMLSession()
     response = session.get(url)
     response.html.render()
@@ -33,13 +46,6 @@ def get_response(url: str):
         for option in latest_article.select("a[data-bkey='goto']")
     ]
     return Response(html_raw, Question(res.select(".subtitle")[-1].text, options))
-
-
-class Node:
-    def __init__(self, text, options):
-        self.text = text
-        self.options = options
-        self.children = []
 
 
 def traverse(url: str, depth: int = 3, visited=None) -> Node:
