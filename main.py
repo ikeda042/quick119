@@ -10,15 +10,15 @@ class Option:
 
 
 class Question:
-    def __init__(self, text, options) -> None:
-        self.text = text
-        self.options = options
+    def __init__(self, text: str, options: Option) -> None:
+        self.text: str = text
+        self.options: Option = options
 
 
 class Response:
-    def __init__(self, html_raw, question) -> None:
-        self.html_raw = html_raw
-        self.question = question
+    def __init__(self, html_raw: str, question: Question) -> None:
+        self.html_raw: str = html_raw
+        self.question: Question = question
 
     def __repr__(self) -> str:
         return f"Response({self.question})"
@@ -58,7 +58,7 @@ def traverse(url: str, depth: int = 3, visited=None) -> Node:
     if url in visited:
         return visited[url]
 
-    response = get_response(url)
+    response: Response = get_response(url)
     current_node = Node(response.question.text, response.question.options)
 
     visited[url] = current_node
