@@ -25,10 +25,10 @@ class Response:
 
 
 class Node:
-    def __init__(self, text, options) -> None:
-        self.text = text
-        self.options = options
-        self.children = []
+    def __init__(self, text: str, options: list[Option]) -> None:
+        self.text: str = text
+        self.options: list[Option] = options
+        self.children: list[Node] = []
 
     def __repr__(self) -> str:
         return f"Node({self.text})"
