@@ -1,6 +1,7 @@
 import csv
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup as BS
+import time
 
 
 class Option:
@@ -71,6 +72,7 @@ def traverse(url: str, depth: int = 3, visited=None) -> Node:
 
         next_url = f"{url},{','.join(option.data_bvalue.split(',')[::-1])}"
         print(next_url)
+        time.sleep(1)
         child_node = traverse(next_url, depth - 1, visited)
         if child_node:
             current_node.children.append((option.text, child_node))
